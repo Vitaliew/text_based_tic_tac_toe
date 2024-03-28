@@ -3,6 +3,7 @@ import numpy as np
 to_continue = True
 position = np.array([[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]])
 n = 0
+repetition = 0
 mark = ""
 column = 0
 row = 0
@@ -22,9 +23,11 @@ def print_map(map_position):
 def is_winner(map_position, player_mark):
     # map_position[row][column]
     for _ in range(3):
-        if map_position[_][0] == player_mark and map_position[_][1] == player_mark and map_position[_][2] == player_mark:
+        if map_position[_][0] == player_mark and map_position[_][1] == player_mark and map_position[_][
+            2] == player_mark:
             return True
-        elif map_position[0][_] == player_mark and map_position[1][_] == player_mark and map_position[2][_] == player_mark:
+        elif map_position[0][_] == player_mark and map_position[1][_] == player_mark and map_position[2][
+            _] == player_mark:
             return True
     if map_position[0][2] == player_mark and map_position[1][1] == player_mark and map_position[2][0] == player_mark:
         return True
@@ -37,6 +40,7 @@ while to_continue:
     valid = False
     # Check which player has to go now
     n = n + 1
+    repetition = repetition + 1
     if n % 2 == 0:
         player = 2
         mark = "O"
@@ -73,4 +77,9 @@ while to_continue:
     # Check for a winner
     if is_winner(position, mark):
         print(f"PLAYER {player} WON!")
+        to_continue = False
+
+    # Check if all boxes are filled
+    if repetition == 9:
+        print("TIE!")
         to_continue = False
